@@ -1,5 +1,4 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from "../libs/apiGateway";
-import { formatJSONResponse } from "../libs/apiGateway";
 import { middyfy } from "../libs/lambda";
 
 import schema from "./schema";
@@ -17,9 +16,9 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
         .slice()
         .sort((b, a) => +new Date(b.birthday) - +new Date(a.birthday));
 
-    return formatJSONResponse({
+    return {
         message: { sortedByName, sortedByBirthday },
-    });
+    };
 };
 
 export const sortArr = middyfy(handler);

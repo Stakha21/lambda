@@ -1,5 +1,4 @@
 import type { ValidatedEventAPIGatewayProxyEvent } from "../libs/apiGateway";
-import { formatJSONResponse } from "../libs/apiGateway";
 import { middyfy } from "../libs/lambda";
 
 import schema from "./schema";
@@ -12,9 +11,9 @@ const handler: ValidatedEventAPIGatewayProxyEvent<typeof schema> = async (
     const positiveSum = arr
         .filter((num) => num > 0)
         .reduce((sum, num) => (sum += num), 0);
-    return formatJSONResponse({
+    return {
         message: `Sum of positive is ${positiveSum}`,
-    });
+    };
 };
 
 export const findPositiveSum = middyfy(handler);
